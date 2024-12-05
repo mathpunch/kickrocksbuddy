@@ -7,6 +7,7 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -16,29 +17,35 @@
             color: #ffffff;
         }
         #url-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
             text-align: center;
         }
-        input[type="text"] {
-            width: 300px;
+        input[type="text"], button {
+            width: 80%;
+            max-width: 300px;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #333;
             border-radius: 4px;
             background-color: #222;
             color: #ffffff;
+            outline: none;
         }
         button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-left: 10px;
             border: none;
             background-color: #007bff;
             color: white;
-            border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         button:hover {
             background-color: #0056b3;
+        }
+        h1 {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -47,17 +54,21 @@
     <div id="url-form">
         <h1>Mathpunch V2 Proxy</h1>
         <input type="text" id="url-input" placeholder="Enter website URL">
-        <button onclick="redirect()">Go</button>
+        <button id="go-button">Go</button>
     </div>
 
     <script>
-        function redirect() {
+        document.getElementById('go-button').addEventListener('click', function() {
             let url = document.getElementById('url-input').value.trim();
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                url = 'https://' + url;
+            if (url) {
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    url = 'https://' + url;
+                }
+                window.location.href = url;
+            } else {
+                alert('Please enter a valid URL.');
             }
-            window.location.href = url;
-        }
+        });
     </script>
 
 </body>
